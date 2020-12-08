@@ -1,0 +1,6 @@
+[submodule "other_pkgs/lib32-http-parser"]
+	path = other_pkgs/lib32-http-parser
+	url = ssh://aur@aur.archlinux.org/lib32-http-parser.git
+[submodule "other_pkgs/lib32-libgit2"]
+    path = other_pkgs/lib32-libgit2
+    url = ssh://aur@aur.archlinux.org/lib32-libgit2.git
