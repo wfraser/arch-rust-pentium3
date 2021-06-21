@@ -1,10 +1,10 @@
 # Maintainer: Bill Fraser <wfraser@codewise.org>
 pkgname=rust-nightly-pentium3
-pkgver=1.50.0_2020.12.06
+pkgver=1.55.0_2021.06.19
 pkgrel=1
 pkgdesc="Rust for Pentium III machines"
 url="https://github.com/rust-lang/rust"
-arch=(i686 x86_64)
+arch=(i686)
 license=('MIT' 'Apache')
 depends=(llvm-libs gcc-libs)
 makedepends=(cmake ninja python git lib32-openssl lib32-libgit2 lib32-zlib)
@@ -77,6 +77,14 @@ package() {
 
     install -d "$pkgdir/usr/share/licenses/$pkgname/"
     install -m644 COPYRIGHT LICENSE-* "$pkgdir/usr/share/licenses/$pkgname/"
+
+    # FIXME: the binaries specify an ISA level that's too high
+    # for now, just remove the section that note is in
+    for f in "$pkgdir/usr/bin/*"; do
+        if file $f | grep --quiet ELF; then
+            strip --remove-section=.note.gnu.property $f
+        fi
+    done
 }
 
 # vim: ft=bash
