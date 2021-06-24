@@ -11,9 +11,9 @@ I also patch the Rust sources to say that the `i586-unknown-linux-gnu` is actual
 CPU, but it's still using the `i586-...` LLVM target, so it's not clear whether that'll actually
 result in Pentium III optimizations, or just a Pentium II (i586) binary.
 
-In this effort I also used the [NetBSD rust-bootstrap] package as a valuable reference, because it
+In this effort I also used the [FreeBSD rust-bootstrap] package as a valuable reference, because it
 faces and solves many of the same problems as this one, namely, cross-bootstrapping the compiler
 for different architectures.
 
 [rust-nightly]: https://aur.archlinux.org/packages/rust-nightly/
-[NetBSD rust-bootstrap]: https://www.freshports.org/lang/rust-bootstrap/
+[FreeBSD rust-bootstrap]: https://www.freshports.org/lang/rust-bootstrap/
