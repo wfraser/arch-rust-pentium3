@@ -1,6 +1,6 @@
 # Maintainer: Bill Fraser <wfraser@codewise.org>
 pkgname=rust-nightly-pentium3
-pkgver=1.55.0_2021.06.19
+pkgver=1.58.0_2021.11.10
 pkgrel=1
 pkgdesc="Rust for Pentium III machines"
 url="https://github.com/rust-lang/rust"
@@ -80,8 +80,13 @@ package() {
 
     # FIXME: the binaries specify an ISA level that's too high
     # for now, just remove the section that note is in
-    for f in "$pkgdir/usr/bin/*"; do
-        if file $f | grep --quiet ELF; then
+    echo "fixing ISA level"
+    for f in $pkgdir/usr/bin/*; do
+        # file will crash with SIGSYS ("bad system call") if we have libfakeroot.so preloaded
+        # due to some seccomp thing
+        LD_PRELOAD="" file $f
+        if LD_PRELOAD="" file --no-sandbox $f | grep --quiet ELF; then
+            echo "removing .note.gnu.property from $f"
             strip --remove-section=.note.gnu.property $f
         fi
     done
