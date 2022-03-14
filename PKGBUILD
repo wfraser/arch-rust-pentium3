@@ -1,6 +1,6 @@
 # Maintainer: Bill Fraser <wfraser@codewise.org>
 pkgname=rust-nightly-pentium3
-pkgver=1.58.0_2021.11.10
+pkgver=1.60.0_2022.01.09
 pkgrel=1
 pkgdesc="Rust for Pentium III machines"
 url="https://github.com/rust-lang/rust"
@@ -11,6 +11,8 @@ makedepends=(cmake ninja python git lib32-openssl lib32-libgit2 lib32-zlib)
 provides=(rust)
 conflicts=(rustup cargo)
 _src="https://static.rust-lang.org/dist/rustc-nightly-src.tar.xz"
+# to compile a specific nightly date, use a src url like this, and comment out `pkgver()` below.
+#_src="https://static.rust-lang.org/dist/2021-11-11/rustc-nightly-src.tar.xz"
 source=($_src $_src.asc pentium3.patch)
 validpgpkeys=('108F66205EAEB0AAA8DD5E1C85AB96E6FA1BE5FE')
 sha256sums=("$(curl -sL $_src.sha256 | cut -d\  -f1)" "SKIP" "SKIP")
@@ -53,7 +55,10 @@ build() {
     export CXXFLAGS_i586_unknown_linux_gnu="-m32 -march=pentium3"
     export RUSTFLAGS=""
 
-    python x.py dist -v src/librustc library/std cargo clippy
+    # pre 2021-11-13 component names:
+    #python x.py dist -v src/librustc library/std cargo clippy
+
+    python x.py dist -v rustc rust-std cargo clippy
 }
 
 package() {
