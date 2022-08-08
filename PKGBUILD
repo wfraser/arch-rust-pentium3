@@ -1,6 +1,6 @@
 # Maintainer: Bill Fraser <wfraser@codewise.org>
 pkgname=rust-nightly-pentium3
-pkgver=1.63.0_2022.05.19
+pkgver=1.65.0_2022.08.07
 pkgrel=1
 pkgdesc="Rust for Pentium III machines"
 url="https://github.com/rust-lang/rust"
@@ -29,26 +29,25 @@ build() {
 
     patch -p1 < $srcdir/pentium3.patch
 
+    # Notes:
+    # --llvm-ldflags=-lz:
+    #   LLVM gets built with wrong flags when cross-compilining
+    #   See https://github.com/rust-lang/rust/pull/72696
+    # --set=llvm.targets=X86:
+    #   LLVM by default gets built with the ability to codegen for a whole laundry list of
+    #   architectures; we only need X86.
+
     ./configure \
         --prefix=/usr \
         --target=i586-unknown-linux-gnu \
         --host=i586-unknown-linux-gnu \
         --release-channel=nightly \
-        --disable-docs
-
-    awk '
-        /^#extended = /{ print "extended = true"; next }
-        /^#tools = /{ print "tools = [\"cargo\", \"clippy\"]"; next }
-        /^\[llvm\]/{
-            print
-            print "targets=\"X86\""  # Not the whole laundry list of weird architectures.
-            print "ldflags=\"-lz\""  # LLVM gets built with wrong flags when cross compiling
-                                     # see https://github.com/rust-lang/rust/pull/72696
-            next
-        }
-        { print }
-        ' config.toml > config.toml.new
-    mv config.toml.new config.toml
+        --disable-docs \
+        --enable-extended \
+        --tools=cargo,clippy \
+        --set=llvm.targets=X86 \
+        --llvm-ldflags=-lz \
+    ;
 
     export PKG_CONFIG_ALLOW_CROSS=1
     export CFLAGS_i586_unknown_linux_gnu="-m32 -march=pentium3"
