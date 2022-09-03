@@ -37,6 +37,12 @@ build() {
     # --set=llvm.targets=X86:
     #   LLVM by default gets built with the ability to codegen for a whole laundry list of
     #   architectures; we only need X86.
+    # --set=llvm.link-jobs=1:
+    #   My poor build machine tends to run out of memory linking LLVM, particularly if debug mode
+    #   is enabled.
+    # --disable-llvm-static-stdcpp:
+    #   Statically linking libstdc++ for LLVM ends up pulling in the host version, which has
+    #   unsuitable instructions. Instead, dynamically link to the target's version.
 
     ./configure \
         --prefix=/usr \
@@ -48,6 +54,8 @@ build() {
         --tools=cargo,clippy \
         --set=llvm.targets=X86 \
         --llvm-ldflags=-lz \
+        --set=llvm.link-jobs=1 \
+        --disable-llvm-static-stdcpp \
     ;
 
     export PKG_CONFIG_ALLOW_CROSS=1
