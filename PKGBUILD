@@ -1,6 +1,6 @@
 # Maintainer: Bill Fraser <wfraser@codewise.org>
 pkgname=rust-nightly-pentium3
-pkgver=1.65.0_2022.08.07
+pkgver=1.65.0_2022.09.01.g2e35f954a
 pkgrel=1
 pkgdesc="Rust for Pentium III machines"
 url="https://github.com/rust-lang/rust"
@@ -21,7 +21,8 @@ pkgver() {
     cd rustc-nightly-src
     ver="$(expr "$(cat version)" : '\(.*\)-nightly')"
     date="$(expr "$(cat version)" : '.* \(.*\))')"
-    echo "${ver}_${date//\-/.}"
+    rev="$(expr "$(cat version)" : '.* (\(.*\) ')"
+    echo "${ver}_${date//\-/.}.g${rev}"
 }
 
 build() {
