@@ -17,6 +17,12 @@ source=($_src $_src.asc pentium3.patch)
 validpgpkeys=('108F66205EAEB0AAA8DD5E1C85AB96E6FA1BE5FE')
 sha256sums=("$(curl -sL $_src.sha256 | cut -d\  -f1)" "SKIP" "SKIP")
 
+prepare() {
+    cd rustc-nightly-src
+
+    patch -p1 < $srcdir/pentium3.patch
+}
+
 pkgver() {
     cd rustc-nightly-src
     ver="$(expr "$(cat version)" : '\(.*\)-nightly')"
@@ -27,8 +33,6 @@ pkgver() {
 
 build() {
     cd rustc-nightly-src
-
-    patch -p1 < $srcdir/pentium3.patch
 
     # Notes:
     # --llvm-ldflags=-lz:
