@@ -1,18 +1,18 @@
 # Maintainer: Bill Fraser <wfraser@codewise.org>
 pkgname=rust-nightly-pentium3
-pkgver=1.65.0_2022.09.01.g2e35f954a
+pkgver=1.65.0_2022.09.03.g84f0c3f79
 pkgrel=1
 pkgdesc="Rust for Pentium III machines"
 url="https://github.com/rust-lang/rust"
 arch=(i686)
 license=('MIT' 'Apache')
 depends=(llvm-libs gcc-libs)
-makedepends=(cmake ninja python git lib32-openssl lib32-libgit2 lib32-zlib)
+makedepends=(cmake ninja python git lib32-openssl lib32-libgit2 lib32-zlib lib32-curl)
 provides=(rust)
 conflicts=(rustup cargo)
 _src="https://static.rust-lang.org/dist/rustc-nightly-src.tar.xz"
 # to compile a specific nightly date, use a src url like this, and comment out `pkgver()` below.
-#_src="https://static.rust-lang.org/dist/2021-11-11/rustc-nightly-src.tar.xz"
+#_src="https://static.rust-lang.org/dist/2022-09-03/rustc-nightly-src.tar.xz"
 source=($_src $_src.asc pentium3.patch)
 validpgpkeys=('108F66205EAEB0AAA8DD5E1C85AB96E6FA1BE5FE')
 sha256sums=("$(curl -sL $_src.sha256 | cut -d\  -f1)" "SKIP" "SKIP")
