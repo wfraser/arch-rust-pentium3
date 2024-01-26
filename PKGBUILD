@@ -1,6 +1,6 @@
 # Maintainer: Bill Fraser <wfraser@codewise.org>
 pkgname=rust-nightly-pentium3
-pkgver=1.65.0_2022.09.03.g84f0c3f79
+pkgver=1.77.0_2024.01.25.g5bd5d214e
 pkgrel=1
 pkgdesc="Rust for Pentium III machines"
 url="https://github.com/rust-lang/rust"
@@ -48,7 +48,7 @@ build() {
     #   Statically linking libstdc++ for LLVM ends up pulling in the host version, which has
     #   unsuitable instructions. Instead, dynamically link to the target's version.
 
-    ./configure \
+    [ ! -f config.toml ] && ./configure \
         --prefix=/usr \
         --target=i586-unknown-linux-gnu \
         --host=i586-unknown-linux-gnu \

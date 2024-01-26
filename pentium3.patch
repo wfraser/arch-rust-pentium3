@@ -1,7 +1,7 @@
 diff --git a/compiler/rustc_target/src/spec/i586_unknown_linux_gnu.rs b/compiler/rustc_target/src/spec/i586_unknown_linux_gnu.rs
 index 7c92dda8a9d..09abaf91c28 100644
---- a/compiler/rustc_target/src/spec/i586_unknown_linux_gnu.rs
-+++ b/compiler/rustc_target/src/spec/i586_unknown_linux_gnu.rs
+--- a/compiler/rustc_target/src/spec/targets/i586_unknown_linux_gnu.rs
++++ b/compiler/rustc_target/src/spec/targets/i586_unknown_linux_gnu.rs
 @@ -2,7 +2,7 @@
  
  pub fn target() -> Target {
