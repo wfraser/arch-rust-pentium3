@@ -55,7 +55,7 @@ build() {
         --release-channel=nightly \
         --disable-docs \
         --enable-extended \
-        --tools=cargo,clippy \
+        --tools=cargo,clippy,rustdoc \
         --set=llvm.targets=X86 \
         --llvm-ldflags=-lz \
         --set=llvm.link-jobs=1 \
