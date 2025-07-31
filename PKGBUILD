@@ -1,4 +1,4 @@
-# Maintainer: Bill Fraser <wfraser@codewise.org>
+# Maintainer: Bill Fraser <bill@wfraser.dev>
 pkgname=rust-nightly-pentium3
 pkgver=1.90.0_2025.07.30.g3048886e5
 pkgrel=1
